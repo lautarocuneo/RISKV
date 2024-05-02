@@ -1,0 +1,34 @@
+Cuneo Lautaro, 1581/21
+
+1) sumar_limpiando_impares: 
+
+guardo el inmediato 0x55555555 en t3, que en binario seria:
+
+0101 0101 0101 0101 0101 0101 0101 0101 (esto es teniendo en cuenta que el bit menos significativo
+es el bit cero y el segundo es el bit uno, el tercero es el bit 2...etc...)
+
+luego realizo un and entre a1 y t3 para poner los digitos impares en cero y dejar los pares en lo que ya tenian.
+Guardo el resultado en a1.
+No puedo usar un andi directamente porque es maximo 12 bits el inmediato.
+
+luego sumo a1 (a) y a2 (b), y lo guardo en a0 (accum)
+
+2) multiplicar:
+de entrada me pregunto si a1 es cero o a2 es menor o igual a cero, en ese caso salto a la etiqueta cero, que 
+pone un cero en a0 y devuelvo eso.
+En caso contrario paso a sum, que lo primero que hace es revisar que a2 no sea cero, luego le sumo a1("a") a a0("accum")
+y decremento a2 ("b"), vuelvo a saltar a sum consecutivamente hasta que b sea igual a cero, entonces en ese momento salto 
+a la etiqueta return que tiene un ret.
+
+3) posicion_impar:
+hago un andi entre a1 y 0x1 , o sea solo me importa saber si el primer digito es 1 o 0.
+Si el resultado de mi and es 0, salto a la etiqueta "ceroo" y guardo un cero en a0 y ret.
+En el otro caso (el resultado de mi and es 0x1) , entonces cargo un 1 en a0 y ret.
+
+4) primera_mitad:
+primero cargo un 1 en un temporal t3. Esto sera las posiciones que desplazare a la derecha a length (una),
+que es equivalente a dividirlo por dos. 
+hago un shift right aritmetical con lenght y t3 (que tiene un uno) que es equivalente a dividir por dos.
+Uso la version aritmetical porque en vez de agregar ceros mantiene los digitos mas significativos. (mantiene el signo)
+uso un bge entre index y (length/2), en caso afirmativo salto a la etiqueta "uno", devuelvo un 1.
+en el otro caso devuelvo un cero.
